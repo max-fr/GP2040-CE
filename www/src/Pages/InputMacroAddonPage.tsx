@@ -54,9 +54,9 @@ const schema = yup.object().shape({
 	macroBoardLedEnabled: yup.number(),
 });
 
-const MACRO_INPUTS_MAX = 30;
+const MACRO_INPUTS_MAX = 15;
 
-const MACRO_LIMIT = 6;
+const MACRO_LIMIT = 12;
 
 const defaultMacroInput = {
 	buttonMask: 0,

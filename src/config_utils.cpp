@@ -1327,9 +1327,12 @@ void migrateMacroPinsToGpio(Config& config) {
     }
     
     if ( macroOptions.macroList_count == MAX_MACRO_LIMIT ) {
-        const static GpioAction actionList[6] = { GpioAction::BUTTON_PRESS_MACRO_1, GpioAction::BUTTON_PRESS_MACRO_2,
+        const static GpioAction actionList[12] = { GpioAction::BUTTON_PRESS_MACRO_1, GpioAction::BUTTON_PRESS_MACRO_2,
                                                     GpioAction::BUTTON_PRESS_MACRO_3, GpioAction::BUTTON_PRESS_MACRO_4,
-                                                    GpioAction::BUTTON_PRESS_MACRO_5, GpioAction::BUTTON_PRESS_MACRO_6 };
+                                                    GpioAction::BUTTON_PRESS_MACRO_5, GpioAction::BUTTON_PRESS_MACRO_6,
+                                                    GpioAction::BUTTON_PRESS_MACRO_7, GpioAction::BUTTON_PRESS_MACRO_8,
+                                                    GpioAction::BUTTON_PRESS_MACRO_9, GpioAction::BUTTON_PRESS_MACRO_10,
+                                                    GpioAction::BUTTON_PRESS_MACRO_11, GpioAction::BUTTON_PRESS_MACRO_12};
         for(int i = 0; i < MAX_MACRO_LIMIT; i++ ) {
             if ( macroOptions.macroList[i].has_deprecatedMacroTriggerPin &&
                     isValidPin(macroOptions.macroList[i].deprecatedMacroTriggerPin) ) {

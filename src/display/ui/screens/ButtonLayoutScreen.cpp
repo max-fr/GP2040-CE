@@ -54,7 +54,13 @@ void ButtonLayoutScreen::init() {
             case GpioAction::BUTTON_PRESS_MACRO_3:
             case GpioAction::BUTTON_PRESS_MACRO_4:
             case GpioAction::BUTTON_PRESS_MACRO_5:
-            case GpioAction::BUTTON_PRESS_MACRO_6:
+            case GpioAction::BUTTON_PRESS_MACRO_6:            	
+            case GpioAction::BUTTON_PRESS_MACRO_7:
+            case GpioAction::BUTTON_PRESS_MACRO_8:
+            case GpioAction::BUTTON_PRESS_MACRO_9:
+            case GpioAction::BUTTON_PRESS_MACRO_10:
+            case GpioAction::BUTTON_PRESS_MACRO_11:
+            case GpioAction::BUTTON_PRESS_MACRO_12:
                 macroEnabled = true;
                 break;
             default:
