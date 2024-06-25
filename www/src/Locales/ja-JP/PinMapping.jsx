@@ -33,7 +33,7 @@ export default {
 		SUSTAIN_SOCD_MODE_FIRST_WIN: '先入力優先モード(SOCDクリーナ)',
 		SUSTAIN_SOCD_MODE_BYPASS: 'SOCDクリーナ無効',
 		BUTTON_PRESS_TURBO: '連射機能',
-		BUTTON_PRESS_MACRO: 'マクロボタン',
+		BUTTON_PRESS_MACRO_A: 'マクロボタン',
 		BUTTON_PRESS_MACRO_1: 'マクロ 1',
 		BUTTON_PRESS_MACRO_2: 'マクロ 2',
 		BUTTON_PRESS_MACRO_3: 'マクロ 3',

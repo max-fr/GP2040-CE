@@ -40,7 +40,8 @@ const schema = yup.object().shape({
 			exclusive: yup.number(),
 			interruptible: yup.number(),
 			showFrames: yup.number(),
-			useMacroTriggerButton: yup.number(),
+			useMacroTriggerButtonA: yup.number(),
+			useMacroTriggerButtonB: yup.number(),
 			macroTriggerButton: yup.number(),
 			macroInputs: yup.array().of(
 				yup.object().shape({
@@ -54,9 +55,9 @@ const schema = yup.object().shape({
 	macroBoardLedEnabled: yup.number(),
 });
 
-const MACRO_INPUTS_MAX = 15;
+const MACRO_INPUTS_MAX = 5;
 
-const MACRO_LIMIT = 12;
+const MACRO_LIMIT = 24;
 
 const defaultMacroInput = {
 	buttonMask: 0,
@@ -72,7 +73,8 @@ const defaultValues = {
 		exclusive: 1,
 		interruptible: 1,
 		showFrames: 1,
-		useMacroTriggerButton: 0,
+		useMacroTriggerButtonA: 0,
+		useMacroTriggerButtonB: 0,
 		macroTriggerButton: 0,
 		macroInputs: [defaultMacroInput],
 	}),
@@ -302,7 +304,8 @@ const MacroComponent = (props) => {
 			exclusive,
 			interruptible,
 			showFrames,
-			useMacroTriggerButton,
+			useMacroTriggerButtonA,
+			useMacroTriggerButtonB,
 			macroTriggerButton,
 		},
 		errors,
@@ -316,8 +319,8 @@ const MacroComponent = (props) => {
 		macroList,
 	} = props;
 
-	return (
-		<div key={key}>
+	return (		
+		<div key={key}>			
 			<Row>
 				<Col sm={'auto'}>
 					<Form.Check
@@ -406,21 +409,21 @@ const MacroComponent = (props) => {
 			<Row mt={2} className="align-items-center">
 				<Col sm={'auto'}>
 					<Form.Check
-						name={`${key}.useMacroTriggerButton`}
-						label={t('InputMacroAddon:input-macro-macro-uses-buttons')}
+						name={`${key}.useMacroTriggerButtonA`}
+						label={t('InputMacroAddon:input-macro-macro-uses-buttonsA')}
 						type="switch"
 						className="form-select-sm"
-						checked={useMacroTriggerButton}
+						checked={useMacroTriggerButtonA}
 						onChange={(e) => {
 							setFieldValue(
-								`${key}.useMacroTriggerButton`,
+								`${key}.useMacroTriggerButtonA`,
 								e.target.checked ? 1 : 0,
 							);
 						}}
 						isInvalid={false}
 					/>
 				</Col>
-				{useMacroTriggerButton == true && (
+				{useMacroTriggerButtonA == true && (
 					<Row>
 						<Col sm={'auto'}>
 							{t('InputMacroAddon:input-macro-macro-button-pin-plus')}
@@ -442,7 +445,53 @@ const MacroComponent = (props) => {
 										macroList.find(
 											(m, macroIdx) =>
 												index != macroIdx &&
-												m.useMacroTriggerButton &&
+												m.useMacroTriggerButtonA &&
+												m.macroTriggerButton === b.value,
+										) === undefined,
+								)}
+							/>
+						</Col>
+					</Row>
+				)}
+				<Col sm={'auto'}>
+					<Form.Check
+						name={`${key}.useMacroTriggerButtonB`}
+						label={t('InputMacroAddon:input-macro-macro-uses-buttonsB')}
+						type="switch"
+						className="form-select-sm"
+						checked={useMacroTriggerButtonB}
+						onChange={(e) => {
+							setFieldValue(
+								`${key}.useMacroTriggerButtonB`,
+								e.target.checked ? 1 : 0,
+							);
+						}}
+						isInvalid={false}
+					/>
+				</Col>
+				{useMacroTriggerButtonB == true && (
+					<Row>
+						<Col sm={'auto'}>
+							{t('InputMacroAddon:input-macro-macro-button-pin-plus')}
+						</Col>
+						<Col sm={'auto'}>
+							<ButtonMasksComponent
+								className="col-sm-auto"
+								value={macroTriggerButton}
+								onChange={(e) => {
+									setFieldValue(
+										`${key}.macroTriggerButton`,
+										parseInt(e.target.value),
+									);
+								}}
+								buttonLabelType={buttonLabelType}
+								translation={t}
+								buttonMasks={BUTTON_MASKS_OPTIONS.filter(
+									(b, i) =>
+										macroList.find(
+											(m, macroIdx) =>
+												index != macroIdx &&
+												m.useMacroTriggerButtonB &&
 												m.macroTriggerButton === b.value,
 										) === undefined,
 								)}
@@ -615,11 +664,11 @@ export default function MacrosPage() {
 																			)}
 																		</td>
 																		<td>
-																			{macro.useMacroTriggerButton == 1
-																				? 'Button'
-																				: 'Pin'}
+																			{macro.useMacroTriggerButtonA == 1
+																				? 'ButtonA' : (	macro.useMacroTriggerButtonB == 1 ? 'ButtonB' : 'Pin' )
+																				}
 																		</td>
-																		{macro.useMacroTriggerButton == 0 ? (
+																		{macro.macroTriggerButton == 0 ? (
 																			<td>
 																				<em>---</em>
 																			</td>

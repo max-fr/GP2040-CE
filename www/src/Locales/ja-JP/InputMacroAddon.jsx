@@ -6,7 +6,9 @@ export default {
 	'input-macro-macro-interruptible':
 		'割り込み可能 （ユーザ操作でマクロ中断）',
 	'input-macro-macro-show-frames': 'フレームを表示 (1 フレーム = 16.666 ms)',
-	'input-macro-macro-uses-buttons':
+	'input-macro-macro-uses-buttonsA':
+		'起動にマクロボタン＋コントローラボタンを利用',
+	'input-macro-macro-uses-buttonsB':
 		'起動にマクロボタン＋コントローラボタンを利用',
 	'input-macro-macro-button-pin-plus': 'ボタン割り当て：',
 	'input-macro-header-text': 'マクロ設定概要',

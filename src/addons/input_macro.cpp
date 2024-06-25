@@ -10,7 +10,8 @@ bool InputMacro::available() {
     for (Pin_t pin = 0; pin < (Pin_t)NUM_BANK0_GPIOS; pin++)
     {
         switch( pinMappings[pin].action ) {
-            case GpioAction::BUTTON_PRESS_MACRO:
+            case GpioAction::BUTTON_PRESS_MACRO_A:
+            case GpioAction::BUTTON_PRESS_MACRO_B:
             case GpioAction::BUTTON_PRESS_MACRO_1:
             case GpioAction::BUTTON_PRESS_MACRO_2:
             case GpioAction::BUTTON_PRESS_MACRO_3:
@@ -23,6 +24,18 @@ bool InputMacro::available() {
             case GpioAction::BUTTON_PRESS_MACRO_10:
             case GpioAction::BUTTON_PRESS_MACRO_11:
             case GpioAction::BUTTON_PRESS_MACRO_12:
+            case GpioAction::BUTTON_PRESS_MACRO_13:
+            case GpioAction::BUTTON_PRESS_MACRO_14:
+            case GpioAction::BUTTON_PRESS_MACRO_15:
+            case GpioAction::BUTTON_PRESS_MACRO_16:
+            case GpioAction::BUTTON_PRESS_MACRO_17:
+            case GpioAction::BUTTON_PRESS_MACRO_18:
+            case GpioAction::BUTTON_PRESS_MACRO_19:
+            case GpioAction::BUTTON_PRESS_MACRO_20:
+            case GpioAction::BUTTON_PRESS_MACRO_21:
+            case GpioAction::BUTTON_PRESS_MACRO_22:
+            case GpioAction::BUTTON_PRESS_MACRO_23:
+            case GpioAction::BUTTON_PRESS_MACRO_24:
                 return true;
             default:
                 break;
@@ -33,13 +46,17 @@ bool InputMacro::available() {
 
 void InputMacro::setup() {
     GpioMappingInfo* pinMappings = Storage::getInstance().getProfilePinMappings();
-    macroButtonMask = 0;
+    macroButtonMaskA = 0;
+    macroButtonMaskB = 0;
     memset(macroPinMasks, 0, sizeof(macroPinMasks));
     for (Pin_t pin = 0; pin < (Pin_t)NUM_BANK0_GPIOS; pin++)
     {
         switch( pinMappings[pin].action ) {
-            case GpioAction::BUTTON_PRESS_MACRO:
-                macroButtonMask = 1 << pin;
+            case GpioAction::BUTTON_PRESS_MACRO_A:
+                macroButtonMaskA = 1 << pin;
+                break;
+            case GpioAction::BUTTON_PRESS_MACRO_B:
+                macroButtonMaskB = 1 << pin;
                 break;
             case GpioAction::BUTTON_PRESS_MACRO_1:
                 macroPinMasks[0] = 1 << pin;
@@ -76,6 +93,42 @@ void InputMacro::setup() {
                 break;
             case GpioAction::BUTTON_PRESS_MACRO_12:
                 macroPinMasks[11] = 1 << pin;
+                break;
+            case GpioAction::BUTTON_PRESS_MACRO_13:
+                macroPinMasks[12] = 1 << pin;
+                break;
+            case GpioAction::BUTTON_PRESS_MACRO_14:
+                macroPinMasks[13] = 1 << pin;
+                break;
+            case GpioAction::BUTTON_PRESS_MACRO_15:
+                macroPinMasks[14] = 1 << pin;
+                break;
+            case GpioAction::BUTTON_PRESS_MACRO_16:
+                macroPinMasks[15] = 1 << pin;
+                break;
+            case GpioAction::BUTTON_PRESS_MACRO_17:
+                macroPinMasks[16] = 1 << pin;
+                break;
+            case GpioAction::BUTTON_PRESS_MACRO_18:
+                macroPinMasks[17] = 1 << pin;
+                break;
+            case GpioAction::BUTTON_PRESS_MACRO_19:
+                macroPinMasks[18] = 1 << pin;
+                break;
+            case GpioAction::BUTTON_PRESS_MACRO_20:
+                macroPinMasks[19] = 1 << pin;
+                break;
+            case GpioAction::BUTTON_PRESS_MACRO_21:
+                macroPinMasks[20] = 1 << pin;
+                break;
+            case GpioAction::BUTTON_PRESS_MACRO_22:
+                macroPinMasks[21] = 1 << pin;
+                break;
+            case GpioAction::BUTTON_PRESS_MACRO_23:
+                macroPinMasks[22] = 1 << pin;
+                break;
+            case GpioAction::BUTTON_PRESS_MACRO_24:
+                macroPinMasks[23] = 1 << pin;
                 break;
             default:
                 break;
@@ -127,9 +180,17 @@ void InputMacro::checkMacroPress() {
         if ( inputMacroOptions->macroList[i].enabled == false ) // Skip disabled macros
             continue;
         Macro * macro = &inputMacroOptions->macroList[i];
-        if ( macro->useMacroTriggerButton ) {
+        if ( macro->useMacroTriggerButtonA ) {
             // Use Gamepad Button for Macro Trigger
-            if ((allPins & macroButtonMask) &&
+            if ((allPins & macroButtonMaskA) &&
+                ((gamepad->state.buttons & macro->macroTriggerButton) ||
+                    (gamepad->state.dpad & (macro->macroTriggerButton >> 16))) ) {
+                pressedMacro = i;
+                break;
+            }
+        } else if ( macro->useMacroTriggerButtonB ) {
+            // Use Gamepad Button for Macro Trigger
+            if ((allPins & macroButtonMaskB) &&
                 ((gamepad->state.buttons & macro->macroTriggerButton) ||
                     (gamepad->state.dpad & (macro->macroTriggerButton >> 16))) ) {
                 pressedMacro = i;
@@ -210,7 +271,7 @@ void InputMacro::runCurrentMacro() {
         gamepad->state.dpad = 0;
         gamepad->state.buttons = 0;
     } else {
-        if (macro.useMacroTriggerButton) {
+        if (macro.useMacroTriggerButtonA || macro.useMacroTriggerButtonB) {
             // Remove the trigger button from the input state
             gamepad->state.dpad &= ~(macro.macroTriggerButton >> 16);
             gamepad->state.buttons &= ~macro.macroTriggerButton;
@@ -278,13 +339,17 @@ void InputMacro::preprocess()
 
 void InputMacro::reinit() {
     GpioMappingInfo* pinMappings = Storage::getInstance().getProfilePinMappings();
-    macroButtonMask = 0;
+    macroButtonMaskA = 0;
+    macroButtonMaskB = 0;
     memset(macroPinMasks, 0, sizeof(macroPinMasks));
     for (Pin_t pin = 0; pin < (Pin_t)NUM_BANK0_GPIOS; pin++)
     {
         switch( pinMappings[pin].action ) {
-            case GpioAction::BUTTON_PRESS_MACRO:
-                macroButtonMask = 1 << pin;
+            case GpioAction::BUTTON_PRESS_MACRO_A:
+                macroButtonMaskA = 1 << pin;
+                break;
+            case GpioAction::BUTTON_PRESS_MACRO_B:
+                macroButtonMaskB = 1 << pin;
                 break;
             case GpioAction::BUTTON_PRESS_MACRO_1:
                 macroPinMasks[0] = 1 << pin;
@@ -321,6 +386,42 @@ void InputMacro::reinit() {
                 break;
             case GpioAction::BUTTON_PRESS_MACRO_12:
                 macroPinMasks[11] = 1 << pin;
+                break;            
+            case GpioAction::BUTTON_PRESS_MACRO_13:
+                macroPinMasks[12] = 1 << pin;
+                break;
+            case GpioAction::BUTTON_PRESS_MACRO_14:
+                macroPinMasks[13] = 1 << pin;
+                break;
+            case GpioAction::BUTTON_PRESS_MACRO_15:
+                macroPinMasks[14] = 1 << pin;
+                break;
+            case GpioAction::BUTTON_PRESS_MACRO_16:
+                macroPinMasks[15] = 1 << pin;
+                break;
+            case GpioAction::BUTTON_PRESS_MACRO_17:
+                macroPinMasks[16] = 1 << pin;
+                break;
+            case GpioAction::BUTTON_PRESS_MACRO_18:
+                macroPinMasks[17] = 1 << pin;
+                break;
+            case GpioAction::BUTTON_PRESS_MACRO_19:
+                macroPinMasks[18] = 1 << pin;
+                break;
+            case GpioAction::BUTTON_PRESS_MACRO_20:
+                macroPinMasks[19] = 1 << pin;
+                break;
+            case GpioAction::BUTTON_PRESS_MACRO_21:
+                macroPinMasks[20] = 1 << pin;
+                break;
+            case GpioAction::BUTTON_PRESS_MACRO_22:
+                macroPinMasks[21] = 1 << pin;
+                break;
+            case GpioAction::BUTTON_PRESS_MACRO_23:
+                macroPinMasks[22] = 1 << pin;
+                break;
+            case GpioAction::BUTTON_PRESS_MACRO_24:
+                macroPinMasks[23] = 1 << pin;
                 break;
             default:
                 break;

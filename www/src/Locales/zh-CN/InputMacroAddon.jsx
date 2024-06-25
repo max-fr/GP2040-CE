@@ -6,7 +6,9 @@ export default {
 	'input-macro-macro-interruptible':
 		'可打断 (用户输入可取消宏)',
 	'input-macro-macro-show-frames': '显示帧数 (1 Frame = 16.666 ms)',
-	'input-macro-macro-uses-buttons':
+	'input-macro-macro-uses-buttonsA':
+		'使用宏按钮 + 游戏控制器按键来触发',
+	'input-macro-macro-uses-buttonsB':
 		'使用宏按钮 + 游戏控制器按键来触发',
 	'input-macro-macro-button-pin-plus': '按键分配:',
 	'input-macro-header-text': '宏设定概要',

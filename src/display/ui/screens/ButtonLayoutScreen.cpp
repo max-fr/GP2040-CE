@@ -48,7 +48,8 @@ void ButtonLayoutScreen::init() {
     for (Pin_t pin = 0; pin < (Pin_t)NUM_BANK0_GPIOS; pin++)
     {
         switch( pinMappings[pin].action ) {
-            case GpioAction::BUTTON_PRESS_MACRO:
+            case GpioAction::BUTTON_PRESS_MACRO_A:
+            case GpioAction::BUTTON_PRESS_MACRO_B:
             case GpioAction::BUTTON_PRESS_MACRO_1:
             case GpioAction::BUTTON_PRESS_MACRO_2:
             case GpioAction::BUTTON_PRESS_MACRO_3:
@@ -61,6 +62,18 @@ void ButtonLayoutScreen::init() {
             case GpioAction::BUTTON_PRESS_MACRO_10:
             case GpioAction::BUTTON_PRESS_MACRO_11:
             case GpioAction::BUTTON_PRESS_MACRO_12:
+            case GpioAction::BUTTON_PRESS_MACRO_13:            
+            case GpioAction::BUTTON_PRESS_MACRO_14:
+            case GpioAction::BUTTON_PRESS_MACRO_15:
+            case GpioAction::BUTTON_PRESS_MACRO_16:
+            case GpioAction::BUTTON_PRESS_MACRO_17:
+            case GpioAction::BUTTON_PRESS_MACRO_18:
+            case GpioAction::BUTTON_PRESS_MACRO_19:
+            case GpioAction::BUTTON_PRESS_MACRO_20:
+            case GpioAction::BUTTON_PRESS_MACRO_21:
+            case GpioAction::BUTTON_PRESS_MACRO_22:
+            case GpioAction::BUTTON_PRESS_MACRO_23:
+            case GpioAction::BUTTON_PRESS_MACRO_24:
                 macroEnabled = true;
                 break;
             default:

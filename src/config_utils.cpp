@@ -750,13 +750,14 @@ void ConfigUtils::initUnsetPropertiesWithDefaults(Config& config)
     INIT_UNSET_PROPERTY(config.addonOptions.macroOptions, deprecatedPin, -1);
 
     // Set all macros
-    for(int i = 0; i < MAX_MACRO_LIMIT; i++) {
+    for(int i = 0; i < 24; i++) {
         INIT_UNSET_PROPERTY(config.addonOptions.macroOptions.macroList[i], enabled, 0);
         INIT_UNSET_PROPERTY(config.addonOptions.macroOptions.macroList[i], exclusive, 1);
         INIT_UNSET_PROPERTY(config.addonOptions.macroOptions.macroList[i], interruptible, 1);
         INIT_UNSET_PROPERTY(config.addonOptions.macroOptions.macroList[i], showFrames, 1);
         INIT_UNSET_PROPERTY(config.addonOptions.macroOptions.macroList[i], macroType, MacroType::ON_PRESS);
-        INIT_UNSET_PROPERTY(config.addonOptions.macroOptions.macroList[i], useMacroTriggerButton, 0);
+        INIT_UNSET_PROPERTY(config.addonOptions.macroOptions.macroList[i], useMacroTriggerButtonA, 0);
+        INIT_UNSET_PROPERTY(config.addonOptions.macroOptions.macroList[i], useMacroTriggerButtonB, 0);
         INIT_UNSET_PROPERTY(config.addonOptions.macroOptions.macroList[i], macroTriggerButton, 0);
         INIT_UNSET_PROPERTY_STR(config.addonOptions.macroOptions.macroList[i], macroLabel, "");
         INIT_UNSET_PROPERTY(config.addonOptions.macroOptions.macroList[i], deprecatedMacroTriggerPin, -1);
@@ -1314,25 +1315,32 @@ void migrateAuthenticationMethods(Config& config) {
 }
 
 void migrateMacroPinsToGpio(Config& config) {
+    /*
     // Convert Macro pin mapping to GPIO mapping configs
     MacroOptions & macroOptions = config.addonOptions.macroOptions;
     if (macroOptions.has_deprecatedPin && isValidPin(macroOptions.deprecatedPin) ) {
         Pin_t pin = macroOptions.deprecatedPin;
-        config.gpioMappings.pins[pin].action = GpioAction::BUTTON_PRESS_MACRO;
+        config.gpioMappings.pins[pin].action = GpioAction::BUTTON_PRESS_MACRO_A;
         for (uint8_t profileNum = 0; profileNum <= 2; profileNum++) {
-            config.profileOptions.gpioMappingsSets[profileNum].pins[pin].action = GpioAction::BUTTON_PRESS_MACRO;
+            config.profileOptions.gpioMappingsSets[profileNum].pins[pin].action = GpioAction::BUTTON_PRESS_MACRO_A;
         }
         macroOptions.deprecatedPin = -1; // set our turbo options to -1 for subsequent calls
         macroOptions.has_deprecatedPin = false;
     }
     
     if ( macroOptions.macroList_count == MAX_MACRO_LIMIT ) {
-        const static GpioAction actionList[12] = { GpioAction::BUTTON_PRESS_MACRO_1, GpioAction::BUTTON_PRESS_MACRO_2,
+        const static GpioAction actionList[MAX_MACRO_LIMIT] = { GpioAction::BUTTON_PRESS_MACRO_1, GpioAction::BUTTON_PRESS_MACRO_2,
                                                     GpioAction::BUTTON_PRESS_MACRO_3, GpioAction::BUTTON_PRESS_MACRO_4,
                                                     GpioAction::BUTTON_PRESS_MACRO_5, GpioAction::BUTTON_PRESS_MACRO_6,
                                                     GpioAction::BUTTON_PRESS_MACRO_7, GpioAction::BUTTON_PRESS_MACRO_8,
                                                     GpioAction::BUTTON_PRESS_MACRO_9, GpioAction::BUTTON_PRESS_MACRO_10,
-                                                    GpioAction::BUTTON_PRESS_MACRO_11, GpioAction::BUTTON_PRESS_MACRO_12};
+                                                    GpioAction::BUTTON_PRESS_MACRO_11, GpioAction::BUTTON_PRESS_MACRO_12,
+                                                    GpioAction::BUTTON_PRESS_MACRO_13, GpioAction::BUTTON_PRESS_MACRO_14,
+                                                    GpioAction::BUTTON_PRESS_MACRO_15, GpioAction::BUTTON_PRESS_MACRO_16,
+                                                    GpioAction::BUTTON_PRESS_MACRO_17, GpioAction::BUTTON_PRESS_MACRO_18,
+                                                    GpioAction::BUTTON_PRESS_MACRO_19, GpioAction::BUTTON_PRESS_MACRO_20,
+                                                    GpioAction::BUTTON_PRESS_MACRO_21, GpioAction::BUTTON_PRESS_MACRO_22,
+                                                    GpioAction::BUTTON_PRESS_MACRO_23, GpioAction::BUTTON_PRESS_MACRO_24};
         for(int i = 0; i < MAX_MACRO_LIMIT; i++ ) {
             if ( macroOptions.macroList[i].has_deprecatedMacroTriggerPin &&
                     isValidPin(macroOptions.macroList[i].deprecatedMacroTriggerPin) ) {
@@ -1346,6 +1354,7 @@ void migrateMacroPinsToGpio(Config& config) {
             }
         }
     }
+    */
 }
 
 // populate existing configurations' buttonsMask and auxMask to mirror behavior

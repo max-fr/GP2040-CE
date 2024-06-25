@@ -48,7 +48,7 @@ export default {
 		SUSTAIN_SOCD_MODE_FIRST_WIN: 'Erster Gewinnt SOCD Säuberung',
 		SUSTAIN_SOCD_MODE_BYPASS: 'SOCD Säuberung Aus',
 		BUTTON_PRESS_TURBO: 'Turbo',
-		BUTTON_PRESS_MACRO: 'Makro',
+		BUTTON_PRESS_MACRO_A: 'Makro',
 		BUTTON_PRESS_MACRO_1: 'Makro 1',
 		BUTTON_PRESS_MACRO_2: 'Makro 2',
 		BUTTON_PRESS_MACRO_3: 'Makro 3',

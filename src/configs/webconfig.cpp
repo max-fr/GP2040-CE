@@ -1942,7 +1942,8 @@ std::string setMacroAddonOptions()
         strncpy(macroOptions.macroList[macrosIndex].macroLabel, macro["macroLabel"], macroLabelSize - 1);
         macroOptions.macroList[macrosIndex].macroLabel[macroLabelSize - 1] = '\0';
         macroOptions.macroList[macrosIndex].macroType = macro["macroType"].as<MacroType>();
-        macroOptions.macroList[macrosIndex].useMacroTriggerButton = macro["useMacroTriggerButton"].as<bool>();
+        macroOptions.macroList[macrosIndex].useMacroTriggerButtonA = macro["useMacroTriggerButtonA"].as<bool>();
+        macroOptions.macroList[macrosIndex].useMacroTriggerButtonB = macro["useMacroTriggerButtonB"].as<bool>();
         macroOptions.macroList[macrosIndex].macroTriggerButton = macro["macroTriggerButton"].as<uint32_t>();
         macroOptions.macroList[macrosIndex].enabled = macro["enabled"] == true;
         macroOptions.macroList[macrosIndex].exclusive = macro["exclusive"] == true;
@@ -1985,7 +1986,8 @@ std::string getMacroAddonOptions()
         macro["interruptible"] = macroOptions.macroList[i].interruptible ? 1 : 0;
         macro["showFrames"] = macroOptions.macroList[i].showFrames ? 1 : 0;
         macro["macroType"] = macroOptions.macroList[i].macroType;
-        macro["useMacroTriggerButton"] = macroOptions.macroList[i].useMacroTriggerButton ? 1 : 0;
+        macro["useMacroTriggerButtonA"] = macroOptions.macroList[i].useMacroTriggerButtonA ? 1 : 0;
+        macro["useMacroTriggerButtonB"] = macroOptions.macroList[i].useMacroTriggerButtonB ? 1 : 0;
         macro["macroTriggerButton"] = macroOptions.macroList[i].macroTriggerButton;
         macro["macroLabel"] = macroOptions.macroList[i].macroLabel;
 

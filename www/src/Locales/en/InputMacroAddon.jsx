@@ -6,8 +6,10 @@ export default {
 	'input-macro-macro-interruptible':
 		'Interruptible (User Input Cancels the Macro)',
 	'input-macro-macro-show-frames': 'Show Frames (1 Frame = 16.666 ms)',
-	'input-macro-macro-uses-buttons':
-		'Use Macro Button + Gamepad Button to Trigger',
+	'input-macro-macro-uses-buttonsA':
+		'Use Macro Button A + Gamepad Button to Trigger',
+	'input-macro-macro-uses-buttonsB':
+		'Use Macro Button B + Gamepad Button to Trigger',
 	'input-macro-macro-button-pin-plus': 'Button Assignment:',
 	'input-macro-header-text': 'Macros Overview',
 	'input-macro-1-header-text': 'Macro 1 Settings',
@@ -22,6 +24,18 @@ export default {
 	'input-macro-10-header-text': 'Macro 10 Settings',
 	'input-macro-11-header-text': 'Macro 11 Settings',
 	'input-macro-12-header-text': 'Macro 12 Settings',
+	'input-macro-13-header-text': 'Macro 13 Settings',
+	'input-macro-14-header-text': 'Macro 14 Settings',
+	'input-macro-15-header-text': 'Macro 15 Settings',
+	'input-macro-16-header-text': 'Macro 16 Settings',
+	'input-macro-17-header-text': 'Macro 17 Settings',
+	'input-macro-18-header-text': 'Macro 18 Settings',
+	'input-macro-19-header-text': 'Macro 19 Settings',
+	'input-macro-20-header-text': 'Macro 20 Settings',
+	'input-macro-21-header-text': 'Macro 21 Settings',
+	'input-macro-22-header-text': 'Macro 22 Settings',
+	'input-macro-23-header-text': 'Macro 23 Settings',
+	'input-macro-24-header-text': 'Macro 24 Settings',
 	'input-macro-duration-label': 'Duration',
 	'input-macro-wait-duration-label': 'Wait Duration',
 	'input-macro-time-label-ms': 'ms',
@@ -37,4 +51,6 @@ export default {
 		'hold-repeat': 'Hold Repeat',
 		toggle: 'Toggle',
 	},
+	'macro-name': 'Macro Name',
+	'macro-activation-type': 'Macro Activation Type',
 };
